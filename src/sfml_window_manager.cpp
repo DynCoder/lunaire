@@ -9,7 +9,7 @@ sfml_window_manager::sfml_window_manager()
   : m_window(sf::VideoMode(
                static_cast<unsigned int>(sf::VideoMode::getDesktopMode().width - 200),
                static_cast<unsigned int>(sf::VideoMode::getDesktopMode().height - 200)),
-             "Geneak", static_cast<unsigned int>(get_video_mode())),
+             "Lunaire", static_cast<unsigned int>(get_video_mode())),
     m_state{ game_state::drawing }
 {
   m_window.setPosition(sf::Vector2i(100, 50));
@@ -26,7 +26,7 @@ sfml_window_manager::sfml_window_manager()
   : m_window(sf::VideoMode(
                static_cast<unsigned int>(1000),
                static_cast<unsigned int>(1000)),
-             "Geneak")
+             "Lunaire")
 {
   // Set up window, start location to the center
   m_window.setPosition(sf::Vector2i(0, 0));

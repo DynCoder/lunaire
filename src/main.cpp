@@ -2,23 +2,19 @@
 #include "game_state.h"
 #include "sfml_window_manager.h"
 #include "sfml_drawing_screen.h"
-#include "sfml_text_input.h"
-#include "sfml_button.h"
-#include "sfml_line.h"
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <cassert>
 #include <SFML/Graphics.hpp>
-#include <unistd.h>
 
 void test() {
   //test_sfml_window_manager();
   test_normal_char();
 }
 
-int show_sfml_drawing_screen(std::string tree, std::string path) {
-  sfml_drawing_screen ds(tree);
+int show_sfml_drawing_screen(std::string path, std::vector<sf::Vector3f> dat) {
+  sfml_drawing_screen ds(dat);
   ds.set_path(path);
   ds.exec();
   return 0;
@@ -35,10 +31,11 @@ int main(int argc, char **argv) { //!OCLINT
 
   const std::vector<std::string> args(argv, argv + argc);
   
-  std::string tree;
   std::string path = args.at(0);
   
   std::clog << path << std::endl;
+  
+  std::vector<sf::Vector3f> pos_data;
   
   if ((!std::count(path.begin(), path.end(), '/')) &&
       (!std::count(path.begin(), path.end(), '\\'))) {
@@ -51,19 +48,29 @@ int main(int argc, char **argv) { //!OCLINT
   
   for (auto &arg : args) {
     if (arg.size() > 4) { //!OCLINT for exception safety non-collapsible
-      if (arg.substr(arg.size() - 4) == ".gnk") {
+      if (arg.substr(arg.size() - 4) == ".lun") {
         std::ifstream sfile;
+        std::string line;
         sfile.open(arg);
         if (sfile.is_open()) {
-          std::getline(sfile, tree);
+          std::getline(infile, line);
+          std::clog << line << std::endl;
+          std::assert(line == "x y z");
+          while (std::getline(infile, line)) {
+              std::istringstream iss(line);
+              int x, y, z;
+              if (!(iss >> x >> y >> z)) { break; }
+              pos_data.push_back(sf::Vector3f(x, y, z));
+          }
           sfile.close();
         } else {
-          tree = "";
-          std::clog << "Couldn't open .gnk file" << std::endl;
+          std::clog << "Couldn't open .lun file" << std::endl;
+          return 2;
         }
       }
     }
   }
+  if (pos_data.size() < 1) { return 3; }
   sfml_resources::get().load(path);
   
   if (std::count(std::begin(args), std::end(args), "--version")) {
@@ -89,7 +96,7 @@ int main(int argc, char **argv) { //!OCLINT
   
   while (sfml_window_manager::get().get_window().isOpen()) {
     if (sfml_window_manager::get().get_state() == game_state::drawing) {
-      show_sfml_drawing_screen(tree, path);
+      show_sfml_drawing_screen(path, pos_data);
     }
   }
   
