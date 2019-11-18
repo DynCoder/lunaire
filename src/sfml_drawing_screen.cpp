@@ -21,7 +21,6 @@ sfml_drawing_screen::sfml_drawing_screen(std::vector<sf::Vector3f> dat)
                                          (m_window.getSize().y / 2) + 50),
                             sf::Vector2f(m_window.getSize().x,
                                          m_window.getSize().y - 100));
-  
 }
 
 void sfml_drawing_screen::exec() { //!OCLINT can be complex
@@ -57,7 +56,6 @@ void sfml_drawing_screen::process_event(sf::Event event) { //!OCLINT can be comp
                      static_cast<float>(m_window.getSize().y));
         m_window.setView(view);
         set_sizes();
-        update_tree(m_input.get_string());
       }
       break;
 
@@ -153,21 +151,10 @@ void sfml_drawing_screen::draw_objects() {
   // Clear window
   m_window.clear();
 
-
   // Draw tool bar
   m_window.draw(m_tool_bar);
 
-#ifndef NDEBUG
-  m_window.draw(m_input.get_shape());
-  m_window.draw(m_input.get_text());
-#endif
-
-  m_window.draw(m_confirm.get_shape());
-  //m_window.draw(m_confirm.get_text());
-  m_window.draw(m_save_sprite);
-
-
-  // Draw tree viewer
+  // Draw tree viewing port
   m_window.draw(m_drawing_area);
 
   sf::View o_view = m_window.getView();

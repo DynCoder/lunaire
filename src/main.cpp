@@ -6,12 +6,8 @@
 #include <fstream>
 #include <vector>
 #include <cassert>
+#include <sstream>
 #include <SFML/Graphics.hpp>
-
-void test() {
-  //test_sfml_window_manager();
-  test_normal_char();
-}
 
 int show_sfml_drawing_screen(std::string path, std::vector<sf::Vector3f> dat) {
   sfml_drawing_screen ds(dat);
@@ -22,18 +18,18 @@ int show_sfml_drawing_screen(std::string path, std::vector<sf::Vector3f> dat) {
 
 int main(int argc, char **argv) { //!OCLINT
 #ifndef NDEBUG
-  test();
+  // test();
 #else
   assert(1 == 2);
 #endif
 
-  std::cout << get_time() << std::endl;
+//  std::cout << get_time() << std::endl;
 
   const std::vector<std::string> args(argv, argv + argc);
   
   std::string path = args.at(0);
   
-  std::clog << path << std::endl;
+//  std::clog << path << std::endl;
   
   std::vector<sf::Vector3f> pos_data;
   
@@ -53,18 +49,19 @@ int main(int argc, char **argv) { //!OCLINT
         std::string line;
         sfile.open(arg);
         if (sfile.is_open()) {
-          std::getline(infile, line);
-          std::clog << line << std::endl;
-          std::assert(line == "x y z");
-          while (std::getline(infile, line)) {
+          std::getline(sfile, line);
+//          std::clog << "HEAD: " << line << std::endl;
+          assert(line == "x y z");//      <--------------------------------------------------- ASSERT
+          while (std::getline(sfile, line)) {
               std::istringstream iss(line);
-              int x, y, z;
+              float x, y, z;
               if (!(iss >> x >> y >> z)) { break; }
+//              std::clog << "LINE: " << x << " " << y << " " << z << std::endl;
               pos_data.push_back(sf::Vector3f(x, y, z));
           }
           sfile.close();
         } else {
-          std::clog << "Couldn't open .lun file" << std::endl;
+//          std::clog << "Couldn't open .lun file" << std::endl;
           return 2;
         }
       }
@@ -88,9 +85,9 @@ int main(int argc, char **argv) { //!OCLINT
   }
   
   if (std::count(std::begin(args), std::end(args), "--ci")) {
-    std::clog << "CI argument passed!\n";
+    std::clog << "CI argument passed!" << std::endl;
 #ifdef CI
-    std::clog << "CI defined!\n";
+    std::clog << "CI defined!" << std::endl;
 #endif
   }
   

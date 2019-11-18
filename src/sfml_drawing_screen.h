@@ -36,6 +36,8 @@ private:
     sf::RectangleShape m_tool_bar;
     sf::RectangleShape m_drawing_area;
     
+    sf::View m_drawing_view;
+    
     std::vector<sf::Vector3f> m_data;
     
     bool hover(float x, float y, float range);
