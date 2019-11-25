@@ -3,6 +3,7 @@
 
 #include "game_state.h"
 #include "sfml_resources.h"
+#include "sfml_slider.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 
@@ -49,6 +50,8 @@ private:
     sf::Texture& m_remove_image;
   
     sf::Texture& m_split_image;
+    
+    sfml_slider m_meter_h;
     
 };
 

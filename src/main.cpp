@@ -2,6 +2,7 @@
 #include "game_state.h"
 #include "sfml_window_manager.h"
 #include "sfml_drawing_screen.h"
+#include "sfml_slider.h"
 #include <iostream>
 #include <fstream>
 #include <vector>

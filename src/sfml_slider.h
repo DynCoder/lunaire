@@ -13,6 +13,11 @@ public:
   
   sf::RectangleShape button;
   
+  void set_val(int nval) { m_val = nval; }
+  int get_val() const { return m_val; }
+  
+  void recreate();
+
 private:
 
   float m_x;
@@ -27,8 +32,10 @@ private:
   
   bool m_ver;
   
-  void recreate();
+  int m_val;
   
 };
+
+float scale(float num, float smin, float smax, float emin, float emax);
 
 #endif // SFML_SLIDER_H

@@ -12,10 +12,14 @@ sfml_drawing_screen::sfml_drawing_screen(std::vector<sf::Vector3f> dat)
     : m_window{ sfml_window_manager::get().get_window() }, m_data{ dat },
       m_add_image{ sfml_resources::get().get_add_image() },
       m_remove_image{ sfml_resources::get().get_remove_image() },
-      m_split_image{ sfml_resources::get().get_split_image() }
+      m_split_image{ sfml_resources::get().get_split_image() },
+      m_meter_h(-800, -600, 400, 0, 1000, true)
 {
   m_tool_bar.setFillColor(sf::Color(100, 100, 100));
   m_drawing_area.setFillColor(sf::Color(220, 220, 220));
+  
+  m_meter_h.recreate();
+  m_meter_h.set_val(300);
   
   m_drawing_view = sf::View(sf::Vector2f(m_window.getSize().x / 2,
                                          (m_window.getSize().y / 2) + 50),
@@ -162,7 +166,8 @@ void sfml_drawing_screen::draw_objects() {
 
   // Draw objects //
   
-  
+  m_window.draw(m_meter_h.line);
+  m_window.draw(m_meter_h.button);
   
   //////////////////
 
