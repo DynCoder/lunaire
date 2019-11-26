@@ -13,13 +13,13 @@ sfml_drawing_screen::sfml_drawing_screen(std::vector<sf::Vector3f> dat)
       m_add_image{ sfml_resources::get().get_add_image() },
       m_remove_image{ sfml_resources::get().get_remove_image() },
       m_split_image{ sfml_resources::get().get_split_image() },
-      m_meter_h(-800, -600, 400, 0, 1000, true)
+      m_meter_h(10, 110, 600, 0, 1000, true)
 {
   m_tool_bar.setFillColor(sf::Color(100, 100, 100));
   m_drawing_area.setFillColor(sf::Color(220, 220, 220));
   
   m_meter_h.recreate();
-  m_meter_h.set_val(300);
+  //m_meter_h.set_val(300);
   
   m_drawing_view = sf::View(sf::Vector2f(m_window.getSize().x / 2,
                                          (m_window.getSize().y / 2) + 50),
@@ -51,7 +51,7 @@ void sfml_drawing_screen::process_event(sf::Event event) { //!OCLINT can be comp
     case sf::Event::Closed:
         close();
         break;
-
+/*
     case sf::Event::Resized:
       {
         sf::View view = m_window.getDefaultView();
@@ -62,7 +62,7 @@ void sfml_drawing_screen::process_event(sf::Event event) { //!OCLINT can be comp
         set_sizes();
       }
       break;
-
+*/
     case sf::Event::KeyPressed:
       switch (event.key.code)
       {
@@ -148,7 +148,8 @@ void sfml_drawing_screen::set_sizes() {
   
   float tb_per = 100.0/m_window.getSize().y;
   m_drawing_view.setViewport(sf::FloatRect(0, tb_per, 1, 1 - tb_per));
-  m_drawing_view.setCenter(0, 0);
+  sf::Vector2f size(m_window.getSize());
+  //m_drawing_view.setCenter(size.x / 2, size.y / 2);
 }
 
 void sfml_drawing_screen::draw_objects() {
