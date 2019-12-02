@@ -52,7 +52,7 @@ int main(int argc, char **argv) { //!OCLINT
         if (sfile.is_open()) {
           std::getline(sfile, line);
 //          std::clog << "HEAD: " << line << std::endl;
-          assert(line == "x y z");//      <--------------------------------------------------- ASSERT
+//          assert(line == "x y z");//      <--------------------------------------------------- ASSERT
           while (std::getline(sfile, line)) {
               std::istringstream iss(line);
               float x, y, z;

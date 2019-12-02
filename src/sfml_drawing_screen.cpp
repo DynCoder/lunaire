@@ -8,6 +8,11 @@
 #include <algorithm>
 #include <chrono>
 
+/* IDEAS
+ * /////
+ * Include time scale at the top of .lun file
+ */
+
 sfml_drawing_screen::sfml_drawing_screen(std::vector<sf::Vector3f> dat)
     : m_window{ sfml_window_manager::get().get_window() }, m_data{ dat },
       m_add_image{ sfml_resources::get().get_add_image() },
@@ -18,13 +23,21 @@ sfml_drawing_screen::sfml_drawing_screen(std::vector<sf::Vector3f> dat)
   m_tool_bar.setFillColor(sf::Color(100, 100, 100));
   m_drawing_area.setFillColor(sf::Color(220, 220, 220));
   
-  m_meter_h.recreate();
-  //m_meter_h.set_val(300);
-  
   m_drawing_view = sf::View(sf::Vector2f(m_window.getSize().x / 2,
                                          (m_window.getSize().y / 2) + 50),
                             sf::Vector2f(m_window.getSize().x,
                                          m_window.getSize().y - 100));
+  
+  m_max_h = 0;
+  for (sf::Vector3f v : m_data) {
+    if (v.z > m_max_h) m_max_h = v.z;
+  }
+  
+  m_meter_h.m_l = sf::Vector2f(m_window.getSize()).y - 120;
+  m_meter_h.m_max = m_max_h;
+  m_meter_h.set_val(m_max_h - m_data.at(0).z);
+  
+  m_meter_h.recreate();
 }
 
 void sfml_drawing_screen::exec() { //!OCLINT can be complex

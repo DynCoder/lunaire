@@ -53,6 +53,8 @@ private:
     
     sfml_slider m_meter_h;
     
+    float m_max_h;
+    
 };
 
 std::string get_time();

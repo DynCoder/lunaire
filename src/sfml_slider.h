@@ -13,12 +13,10 @@ public:
   
   sf::RectangleShape button;
   
-  void set_val(int nval) { m_val = nval; }
-  int get_val() const { return m_val; }
+  void set_val(float nval) { m_val = nval; }
+  float get_val() const { return m_val; }
   
   void recreate();
-
-private:
 
   float m_x;
   
@@ -30,9 +28,11 @@ private:
   
   float m_max;
   
-  bool m_ver;
+private:
   
-  int m_val;
+  float m_val;
+  
+  bool m_ver;
   
 };
 
