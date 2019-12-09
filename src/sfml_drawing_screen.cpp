@@ -18,7 +18,7 @@ sfml_drawing_screen::sfml_drawing_screen(std::vector<sf::Vector3f> dat)
       m_add_image{ sfml_resources::get().get_add_image() },
       m_remove_image{ sfml_resources::get().get_remove_image() },
       m_split_image{ sfml_resources::get().get_split_image() },
-      m_meter_h(10, 110, 600, 0, 1000, true)
+      m_meter_h(10, 110, 600, 0, 1000, true), m_step{ 1 }
 {
   m_tool_bar.setFillColor(sf::Color(100, 100, 100));
   m_drawing_area.setFillColor(sf::Color(220, 220, 220));
@@ -29,9 +29,21 @@ sfml_drawing_screen::sfml_drawing_screen(std::vector<sf::Vector3f> dat)
                                          m_window.getSize().y - 100));
   
   m_max_h = 0;
+  m_max_x = 0;
+  m_max_y = 0;
   for (sf::Vector3f v : m_data) {
     if (v.z > m_max_h) m_max_h = v.z;
+    if (std::abs(v.x) > m_max_x) m_max_x = v.x;
+    if (std::abs(v.y) > m_max_y) m_max_y = v.y;
   }
+  
+  m_posmap = sf::RectangleShape(sf::Vector2f(sf::Vector2f(m_window.getSize()).y - 120,
+                                             sf::Vector2f(m_window.getSize()).y - 120));
+  m_posmap.setPosition(210, 110);
+  m_posmap.setFillColor(sf::Color(190, 190, 190));
+  m_posind = sf::RectangleShape(sf::Vector2f(20, 20));
+  m_posind.setPosition(210, 110);
+  m_posind.setFillColor(sf::Color(230, 50, 50));
   
   m_meter_h.m_l = sf::Vector2f(m_window.getSize()).y - 120;
   m_meter_h.m_max = m_max_h;
@@ -52,6 +64,9 @@ void sfml_drawing_screen::exec() { //!OCLINT can be complex
     
     set_positions();
     draw_objects();
+    if (m_step < static_cast<int>(m_data.size())) {
+      update();
+    }
 #ifdef CI
     close();
 #endif
@@ -180,6 +195,7 @@ void sfml_drawing_screen::draw_objects() {
 
   // Draw objects //
   
+  m_window.draw(m_posmap);
   m_window.draw(m_meter_h.line);
   m_window.draw(m_meter_h.button);
   
@@ -204,6 +220,13 @@ bool sfml_drawing_screen::hover(float x, float y, float range) {
   sf::Vector2f mp = m_window.mapPixelToCoords(sf::Mouse::getPosition(m_window), m_drawing_view);
   return mp.x > x - range && mp.x < x + range &&
          mp.y > y - range && mp.y < y + range;
+}
+
+void sfml_drawing_screen::update() {
+  m_meter_h.recreate();
+  sf::Vector3f d = m_data.at(m_step);
+  
+  m_step++;
 }
 
 std::string get_time() {

@@ -1,7 +1,7 @@
 #include "sfml_slider.h"
 
 sfml_slider::sfml_slider(float x, float y, float l, float min, float max, bool ver)
-    : m_x{ x }, m_y{ y } ,m_l{ l }, m_min{ min }, m_max{ max }, m_val{ 0 }, m_ver{ ver }
+    : m_x{ x }, m_y{ y }, m_l{ l }, m_min{ min }, m_max{ max }, m_val{ 0 }, m_ver{ ver }
 {
   recreate();
 }

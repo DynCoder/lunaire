@@ -54,6 +54,15 @@ private:
     sfml_slider m_meter_h;
     
     float m_max_h;
+    float m_max_x;
+    float m_max_y;
+    
+    sf::RectangleShape m_posmap;
+    sf::RectangleShape m_posind;
+    
+    void update();
+    
+    int m_step;
     
 };
 
