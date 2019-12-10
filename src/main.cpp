@@ -10,8 +10,8 @@
 #include <sstream>
 #include <SFML/Graphics.hpp>
 
-int show_sfml_drawing_screen(std::string path, std::vector<sf::Vector3f> dat) {
-  sfml_drawing_screen ds(dat);
+int show_sfml_drawing_screen(std::string path, std::vector<sf::Vector3f> dat, float ts) {
+  sfml_drawing_screen ds(dat, ts);
   ds.set_path(path);
   ds.exec();
   return 0;
@@ -23,8 +23,6 @@ int main(int argc, char **argv) { //!OCLINT
 #else
   assert(1 == 2);
 #endif
-
-//  std::cout << get_time() << std::endl;
 
   const std::vector<std::string> args(argv, argv + argc);
   
@@ -43,6 +41,7 @@ int main(int argc, char **argv) { //!OCLINT
     }
   }
   
+  float ts;
   for (auto &arg : args) {
     if (arg.size() > 4) { //!OCLINT for exception safety non-collapsible
       if (arg.substr(arg.size() - 4) == ".lun") {
@@ -50,6 +49,11 @@ int main(int argc, char **argv) { //!OCLINT
         std::string line;
         sfile.open(arg);
         if (sfile.is_open()) {
+          {
+            std::getline(sfile, line);
+            std::istringstream iss(line);
+            if (!(iss >> ts)) { break; }
+          }
           std::getline(sfile, line);
 //          std::clog << "HEAD: " << line << std::endl;
 //          assert(line == "x y z");//      <--------------------------------------------------- ASSERT
@@ -94,7 +98,7 @@ int main(int argc, char **argv) { //!OCLINT
   
   while (sfml_window_manager::get().get_window().isOpen()) {
     if (sfml_window_manager::get().get_state() == game_state::drawing) {
-      show_sfml_drawing_screen(path, pos_data);
+      show_sfml_drawing_screen(path, pos_data, ts);
     }
   }
   

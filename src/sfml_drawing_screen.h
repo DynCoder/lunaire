@@ -6,12 +6,13 @@
 #include "sfml_slider.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <chrono>
 
 class sfml_drawing_screen
 {
 public:
 
-    sfml_drawing_screen(std::vector<sf::Vector3f> dat);
+    sfml_drawing_screen(std::vector<sf::Vector3f> dat, float ts);
 
     void exec();
 
@@ -54,8 +55,7 @@ private:
     sfml_slider m_meter_h;
     
     float m_max_h;
-    float m_max_x;
-    float m_max_y;
+    float m_max_c;
     
     sf::RectangleShape m_posmap;
     sf::RectangleShape m_posind;
@@ -64,8 +64,11 @@ private:
     
     int m_step;
     
+    float m_ts;
+    std::chrono::steady_clock::time_point m_pt;
+    
 };
 
-std::string get_time();
+std::chrono::steady_clock::time_point get_time();
 
 #endif // SFML_DRAWING_SCREEN_H
