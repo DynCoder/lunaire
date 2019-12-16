@@ -1,3 +1,5 @@
+# This file is not used during development! It can be used by users to build it with Qt on their own computer.
+
 HEADERS += game_state.h \
            sfml_drawing_screen.h \
            sfml_resources.h \
