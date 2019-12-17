@@ -62,6 +62,8 @@ void sfml_drawing_screen::update() {
   m_step++;
 }
 ```
+In het eerste stukje code wordt gekeken of er al weer een tijdstap voorbij is; als dit het geval is wordt de update functie aangeroepen. Deze functie leest dan de data op de eerstvolgende stap uit en laat deze waarden zien op de hoogtemeter en het richtingsvierkant.
+
 De data wordt dan als volgt gevisualiseerd in Lunaire: \
 ![screenshot](https://github.com/Joshua260403/lunaire/blob/master/doc/image.png) \
 Aan de linker kant van het programma staat de hoogte meter en het vierkant is een bovenaanzicht van welke kant de raket op gaat. De hoogtemeter en het richtingsvierkant zijn in de huidige versie (v1.0) niet op dezelfde schaal, ook staan er nog geen labels bij die laten zien hoe hoog of ver de raket nou gaat.
