@@ -5,12 +5,7 @@
 #include <fstream>
 #include <cassert>
 #include <functional>
-#include <algorithm>
-
-/* IDEAS
- * /////
- * Include time scale at the top of .lun file
- */
+#include <algorithm
 
 sfml_drawing_screen::sfml_drawing_screen(std::vector<sf::Vector3f> dat, float ts)
     : m_window{ sfml_window_manager::get().get_window() }, m_data{ dat },
@@ -96,7 +91,7 @@ void sfml_drawing_screen::process_event(sf::Event event) { //!OCLINT can be comp
     case sf::Event::Closed:
         close();
         break;
-/*
+
     case sf::Event::Resized:
       {
         sf::View view = m_window.getDefaultView();
@@ -107,7 +102,7 @@ void sfml_drawing_screen::process_event(sf::Event event) { //!OCLINT can be comp
         set_sizes();
       }
       break;
-*/
+
     case sf::Event::KeyPressed:
       switch (event.key.code)
       {
