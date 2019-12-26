@@ -1,7 +1,16 @@
 #!/bin/bash
+#
+# Build lunaire under linux.
+# Call this script from the lunaire root folder
+#
+# Usage:
+#
+# ./scripts/build_linux
+#
+
 mkdir bin
 cd bin
 cp ../src/resources/* ..
 ls
 g++ -c -std=c++14 -DNDEBUG -Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic -Werror -Wno-unused-variable -fext-numeric-literals -I../../sfml/include -I../src ../src/*.*
-g++ *.o -o lunaire -L../../sfml/lib -lsfml-graphics-d -lsfml-window-d -lsfml-system-d -lsfml-audio-d
+g++ *.o -o lunaire -L../../sfml/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
