@@ -87,9 +87,11 @@ void loop(){
     }
   }
   
+  /*
   if (flying == true && (xyz[0]) <= 1){
     flying = false;
   }
+  */
   
   delay(0);
 }
