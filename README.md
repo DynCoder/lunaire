@@ -1,4 +1,5 @@
 # Lunaire
+[<img src="doc/logo.png" alt="Logo" width="105" height="105">](https://github.com/Joshua260403/lunaire/releases)
 Reading and modelling data gathered from a water rocket
 
 ## Why is it called Lunaire?
@@ -23,3 +24,6 @@ x y z
 [data (x coordinate, y coordinate and height)]
 ...
 ```
+
+[![screenshot](doc/image.png)\
+_Download_](https://github.com/Joshua260403/lunaire/releases)
