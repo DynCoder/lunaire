@@ -5,7 +5,7 @@
 #include <fstream>
 #include <cassert>
 #include <functional>
-#include <algorithm
+#include <algorithm>
 
 sfml_drawing_screen::sfml_drawing_screen(std::vector<sf::Vector3f> dat, float ts)
     : m_window{ sfml_window_manager::get().get_window() }, m_data{ dat },
